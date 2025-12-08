@@ -1,33 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './MyComponents/Header';
+import Todos from './MyComponents/Todos';
+import Footer from './MyComponents/Footer';
 
 function App() {
+  let todos = [
+    {
+      sno: 1,
+      title: "You need to go to the market",
+      desc: "You need to go to market to get this job done"
+    },
+    {
+      sno: 2,
+      title: "You need to go to the school",
+      desc: "You need to go to market to get this job done2"
+    },
+    {
+      sno: 3,
+      title: "You need to go to the tuition",
+      desc: "You need to go to market to get this job done3"
+    }
+  ]
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">Todos List</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page">Home</a>
-              </li>
-
-              <li className="nav-item">
-                <a className="nav-link" href="#">About</a>
-              </li>
-
-            </ul>
-            <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <Header title="My Todos List" searchBar={false}/>
+      <Todos todos={todos}/>
+      <Footer/>
     </>
   );
 }
