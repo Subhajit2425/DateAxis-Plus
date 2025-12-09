@@ -12,10 +12,7 @@ export const Todos = (props) => {
       {props.todos.length === 0 ? "No Todos To Display" :
         props.todos.map((todo) => {
           return (
-            <>
-              <TodoItem todo={todo} key={todo.sno} onDelete={props.onDelete} /> <hr />
-            </>
-          )
+              <TodoItem todo={todo} key={todo.sno} onDelete={props.onDelete} /> )
         })
       }
 
