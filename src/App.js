@@ -24,6 +24,18 @@ function App() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
+  const toggleFavorite = (todo) => {
+    const updatedTodos = todos.map(t => {
+      if (t.sno === todo.sno) {
+        return { ...t, favorite: !t.favorite };
+      }
+      return t;
+    });
+
+    setTodos(updatedTodos);
+  };
+
+
   const addTodo = (title, desc) => {
     let sno;
     if (todos.length === 0) {
@@ -36,6 +48,7 @@ function App() {
       sno: sno,
       title: title,
       desc: desc,
+      favorite: false,
     }
 
     setTodos([...todos, myTodo]);
@@ -53,20 +66,42 @@ function App() {
         <Header title="My Todos List" searchBar={false} />
 
         <Routes>
+
+          {/* Home Route */}
           <Route
             path="/"
             element={
               <>
                 <AddTodo addTodo={addTodo} />
-                <Todos todos={todos} onDelete={onDelete} />
+                <Todos
+                  todos={todos}
+                  onDelete={onDelete}
+                  onFavorite={toggleFavorite}
+                />
               </>
             }
           />
 
+          {/* Favourites Route */}
+          <Route
+            path="/favourites"
+            element={
+              <>
+                <Todos
+                  todos={todos.filter(t => t.favorite)}
+                  onDelete={onDelete}
+                  onFavorite={toggleFavorite}
+                />
+              </>
+            }
+          />
+
+          {/* About Route */}
           <Route
             path="/about"
             element={<About />}
           />
+
         </Routes>
 
         <Footer />

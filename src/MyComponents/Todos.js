@@ -14,6 +14,7 @@ export const Todos = (props) => {
             todo={todo}
             key={todo.sno}
             onDelete={props.onDelete}
+            onFavorite={props.onFavorite}
           />
         ))
       )}

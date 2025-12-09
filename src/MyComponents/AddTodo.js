@@ -3,27 +3,31 @@ import React, { useState } from 'react';
 export const AddTodo = ({ addTodo }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
-
     const [showError, setShowError] = useState(false);
 
     const submit = (e) => {
         e.preventDefault();
-        if (!title || !desc) {
+
+        if (title.trim() === "" || desc.trim() === "") {
             setShowError(true);
             return;
         }
+
         setShowError(false);
-        addTodo(title, desc);
+        addTodo(title.trim(), desc.trim());
+
+        // Clear the form
         setTitle("");
         setDesc("");
     };
-
 
     return (
         <div className="container my-3">
             <div className="todo-card">
                 <h3>Add a Todo</h3>
                 <form onSubmit={submit}>
+                    
+                    {/* Title Field */}
                     <div className="form-floating mb-3">
                         <input
                             type="text"
@@ -36,6 +40,7 @@ export const AddTodo = ({ addTodo }) => {
                         <label htmlFor="title">Todo Title</label>
                     </div>
 
+                    {/* Description Field */}
                     <div className="form-floating mb-3">
                         <input
                             type="text"
@@ -48,16 +53,17 @@ export const AddTodo = ({ addTodo }) => {
                         <label htmlFor="desc">Todo Description</label>
                     </div>
 
+                    {/* Submit */}
+                    <button type="submit" className="btn btn-sm btn-success btn-modern">
+                        Add Todo
+                    </button>
 
-                    <button type="submit" className="btn btn-sm btn-success btn-modern">Add Todo</button>
-
-                    {(!title || !desc) && showError && (
+                    {/* Error Text */}
+                    {showError && (title.trim() === "" || desc.trim() === "") && (
                         <p className="text-danger mt-2">* Title & Description cannot be blank.</p>
                     )}
                 </form>
             </div>
         </div>
-    )
-}
-
-
+    );
+};
