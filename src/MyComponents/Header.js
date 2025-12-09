@@ -18,6 +18,10 @@ export default function Header(props) {
               </li>
 
               <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/favourite">Favourite</Link>
+              </li>
+
+              <li className="nav-item">
                 <Link className="nav-link" to="/about">About</Link>
               </li>
 

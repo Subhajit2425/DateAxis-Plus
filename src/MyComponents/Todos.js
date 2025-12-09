@@ -7,7 +7,7 @@ export const Todos = (props) => {
       <h3 className="my-3 todo-list-title">Your Tasks</h3>
 
       {props.todos.length === 0 ? (
-        <p className="empty-message">✨ No tasks yet. Add one above!</p>
+        <p className="empty-message">✨ No tasks yet. Add one above !</p>
       ) : (
         props.todos.map((todo) => (
           <TodoItem
