@@ -36,3 +36,112 @@
     transform: rotate(360deg);
   }
 }
+
+.todo-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+.todo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 25px rgba(0,0,0,0.12);
+}
+
+.btn-modern {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-modern:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+}
+
+.btn-modern:active {
+  transform: scale(0.97);
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 4px rgba(40,167,69,0.4);
+}
+
+/* Container improvement */
+.todo-list-wrapper {
+  min-height: 70vh;
+  padding: 20px 0;
+}
+
+/* Title */
+.todo-list-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Empty state message */
+.empty-message {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #7f8c8d;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #ececec;
+}
+
+
+/* Todo item card (used inside TodoItem component) */
+.todo-card {
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  margin: 12px 0;
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 18px rgba(0,0,0,0.12);
+}
+
+/* Title + description */
+.todo-text {
+  max-width: 85%;
+}
+
+.todo-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.todo-desc {
+  font-size: 15px;
+  color: #555;
+}
+
+/* Delete button */
+.delete-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
