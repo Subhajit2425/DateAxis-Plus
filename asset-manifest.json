@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/DateAxis-Plus/static/css/main.945c2dd1.css",
-    "main.js": "/DateAxis-Plus/static/js/main.1b6fd73d.js",
+    "main.css": "/DateAxis-Plus/static/css/main.695987df.css",
+    "main.js": "/DateAxis-Plus/static/js/main.3a3f477a.js",
     "static/js/453.117b0875.chunk.js": "/DateAxis-Plus/static/js/453.117b0875.chunk.js",
     "index.html": "/DateAxis-Plus/index.html",
-    "main.945c2dd1.css.map": "/DateAxis-Plus/static/css/main.945c2dd1.css.map",
-    "main.1b6fd73d.js.map": "/DateAxis-Plus/static/js/main.1b6fd73d.js.map",
+    "main.695987df.css.map": "/DateAxis-Plus/static/css/main.695987df.css.map",
+    "main.3a3f477a.js.map": "/DateAxis-Plus/static/js/main.3a3f477a.js.map",
     "453.117b0875.chunk.js.map": "/DateAxis-Plus/static/js/453.117b0875.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.945c2dd1.css",
-    "static/js/main.1b6fd73d.js"
+    "static/css/main.695987df.css",
+    "static/js/main.3a3f477a.js"
   ]
 }
