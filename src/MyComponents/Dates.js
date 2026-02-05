@@ -20,7 +20,6 @@ const Dates = ({ dates, onDelete, onPriority }) => {
       {/* Content */}
       {dates.length === 0 ? (
         <div style={styles.emptyCard}>
-          <span style={styles.emptyIcon}>✨</span>
           <p style={styles.emptyText}>
             No important dates yet.<br />
             Click <strong>“Add Date”</strong> to get started.

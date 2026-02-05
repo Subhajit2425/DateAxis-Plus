@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "./MyComponents/Header";
+import BottomNav from "./MyComponents/BottomNav/BottomNav";
 import Dates from "./MyComponents/Dates";
 import Footer from "./MyComponents/Footer";
 import { AddDate } from "./MyComponents/AddDate";
@@ -91,11 +92,23 @@ function App() {
           }
         />
 
+        <Route
+          path="/completed"
+          element={
+            <Dates
+              dates={dates.filter((d) => d.priority)}
+              onDelete={onDelete}
+              onPriority={togglePriority}
+            />
+          }
+        />
+
         {/* About */}
         <Route path="/about" element={<About />} />
 
       </Routes>
 
+      <BottomNav />
       <Footer />
     </Router>
   );

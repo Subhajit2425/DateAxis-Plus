@@ -16,10 +16,12 @@ const Header = ({ title }) => {
         </Link>
 
         {/* Navigation */}
-        <nav style={styles.nav}>
-          <Link to="/" style={isActive("/")}>Home</Link>
-          <Link to="/favourite" style={isActive("/favourite")}>Important</Link>
-          <Link to="/about" style={isActive("/about")}>About</Link>
+        <nav className="desktop-nav">
+          <nav style={styles.nav}>
+            <Link to="/" style={isActive("/")}>Home</Link>
+            <Link to="/favourite" style={isActive("/favourite")}>Important</Link>
+            <Link to="/about" style={isActive("/about")}>About</Link>
+          </nav>
         </nav>
 
         {/* Right Action */}
@@ -27,7 +29,7 @@ const Header = ({ title }) => {
           + Add Date
         </Link>
       </div>
-    </header>
+    </header >
   );
 };
 
