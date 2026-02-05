@@ -1,4 +1,6 @@
-import "./App.css";
+import React, { useEffect, useState } from "react";
+import AppLoader from "./MyComponents/AppLoader";
+import UserOnboarding from "./MyComponents/UserOnboarding"; // next step
 import Header from "./MyComponents/Header";
 import BottomNav from "./MyComponents/BottomNav/BottomNav";
 import Dates from "./MyComponents/Dates";
@@ -7,10 +9,12 @@ import CompletedDates from "./MyComponents/CompletedDates";
 import Footer from "./MyComponents/Footer";
 import { AddDate } from "./MyComponents/AddDate";
 import About from "./MyComponents/About";
-import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   // Load from localStorage
   const getInitialDates = () => {
@@ -19,6 +23,20 @@ function App() {
   };
 
   const [dates, setDates] = useState(getInitialDates);
+
+  useEffect(() => {
+    const initApp = async () => {
+      // Simulate boot delay (UX polish)
+      await new Promise((res) => setTimeout(res, 1200));
+
+      const storedUserId = localStorage.getItem("userId");
+      setUserId(storedUserId);
+      setLoading(false);
+    };
+
+    initApp();
+  }, []);
+
 
   // Save to localStorage
   useEffect(() => {
@@ -55,6 +73,14 @@ function App() {
       )
     );
   };
+
+  if (loading) {
+    return <AppLoader />;
+  }
+
+  if (!userId) {
+    return <UserOnboarding onComplete={setUserId} />;
+  }
 
   return (
     <Router>
