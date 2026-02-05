@@ -64,7 +64,6 @@ function App() {
           path="/"
           element={
             <>
-              <AddDate addDate={addDate} />
               <Dates
                 dates={dates}
                 onDelete={onDelete}
@@ -72,6 +71,12 @@ function App() {
               />
             </>
           }
+        />
+
+        {/* Add Date page */}
+        <Route
+          path="/add"
+          element={<AddDate addDate={addDate} />}
         />
 
         {/* Priority Dates */}

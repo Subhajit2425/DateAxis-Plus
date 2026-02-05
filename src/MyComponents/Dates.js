@@ -1,10 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DatesItem from "./DatesItem";
 
 const Dates = ({ dates, onDelete, onPriority }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="container dates-list-wrapper">
-      <h3 className="my-3 dates-list-title">Your Important Dates</h3>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h3>Your Important Dates</h3>
+
+        <button
+          className="btn btn-success btn-sm"
+          onClick={() => navigate("/add")}
+        >
+          + Add Date
+        </button>
+      </div>
+      
 
       {dates.length === 0 ? (
         <p className="empty-message">
