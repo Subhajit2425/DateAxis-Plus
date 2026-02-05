@@ -2,6 +2,8 @@ import "./App.css";
 import Header from "./MyComponents/Header";
 import BottomNav from "./MyComponents/BottomNav/BottomNav";
 import Dates from "./MyComponents/Dates";
+import ImportantDates from "./MyComponents/ImportantDates";
+import CompletedDates from "./MyComponents/CompletedDates";
 import Footer from "./MyComponents/Footer";
 import { AddDate } from "./MyComponents/AddDate";
 import About from "./MyComponents/About";
@@ -82,10 +84,10 @@ function App() {
 
         {/* Priority Dates */}
         <Route
-          path="/priority"
+          path="/favourite"
           element={
-            <Dates
-              dates={dates.filter((d) => d.priority)}
+            <ImportantDates
+              dates={dates}
               onDelete={onDelete}
               onPriority={togglePriority}
             />
@@ -95,10 +97,9 @@ function App() {
         <Route
           path="/completed"
           element={
-            <Dates
-              dates={dates.filter((d) => d.priority)}
+            <CompletedDates
+              dates={dates}
               onDelete={onDelete}
-              onPriority={togglePriority}
             />
           }
         />

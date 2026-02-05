@@ -8,13 +8,24 @@ export const AddDate = ({ addDate }) => {
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("Personal");
   const [notes, setNotes] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
 
     if (!title.trim() || !date) {
-      setShowError(true);
+      setShowError("Event title and date are required.");
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const selectedDate = new Date(date);
+    selectedDate.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      setShowError("You cannot add a date in the past.");
       return;
     }
 
@@ -53,6 +64,7 @@ export const AddDate = ({ addDate }) => {
               type="date"
               style={styles.input}
               value={date}
+              min={new Date().toISOString().split("T")[0]}
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
@@ -87,7 +99,7 @@ export const AddDate = ({ addDate }) => {
           {/* Error */}
           {showError && (
             <div style={styles.error}>
-              Event title and date are required.
+              {showError}
             </div>
           )}
 

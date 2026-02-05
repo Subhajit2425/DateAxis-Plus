@@ -10,7 +10,7 @@ const Dates = ({ dates, onDelete, onPriority }) => {
       {/* Header Section */}
       <div style={styles.headerRow}>
         <div>
-          <h2 style={styles.title}>Your Important Dates</h2>
+          <h2 style={styles.title}>Upcoming Dates</h2>
           <p style={styles.subtitle}>
             Track exams, medical visits, legal events, and personal milestones
           </p>

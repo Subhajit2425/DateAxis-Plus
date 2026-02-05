@@ -194,11 +194,13 @@
     cursor: pointer;
     box-shadow: 0 10px 20px rgba(0,0,0,0.25);
   }
-}
 
-/* Hide desktop nav on mobile */
-@media (max-width: 768px) {
   .desktop-nav {
     display: none;
   }
+
+  .desktop-footer {
+    display: none;
+  }
 }
+

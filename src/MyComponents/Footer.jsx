@@ -98,7 +98,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer style={footerStyle}>
+        <footer className="desktop-footer" style={footerStyle}>
             <div style={containerStyle}>
                 {/* Column 1 */}
                 <div style={columnStyle}>
@@ -116,7 +116,7 @@ export default function Footer() {
                     <h4 style={{ marginBottom: "12px" }}>Quick Links</h4>
                     <Link to="/" style={linkStyle}>Home</Link>
                     <Link to="/add" style={linkStyle}>Add Date</Link>
-                    <Link to="/priority" style={linkStyle}>Important Dates</Link>
+                    <Link to="/favourite" style={linkStyle}>Important Dates</Link>
                     <Link to="/about" style={linkStyle}>About</Link>
                 </div>
 
@@ -159,7 +159,7 @@ export default function Footer() {
 
             {/* Footer bottom */}
             <div style={copyrightStyle}>
-                <span>© {new Date().getFullYear()} MedAxis+</span>
+                <span>© {new Date().getFullYear()} DateAxis+</span>
                 <span>•</span>
                 <span>v{APP_VERSION}</span>
                 <span>•</span>

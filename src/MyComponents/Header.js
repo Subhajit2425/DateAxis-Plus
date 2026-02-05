@@ -20,6 +20,7 @@ const Header = ({ title }) => {
           <nav style={styles.nav}>
             <Link to="/" style={isActive("/")}>Home</Link>
             <Link to="/favourite" style={isActive("/favourite")}>Important</Link>
+            <Link to="/completed" style={isActive("/completed")}>Completed</Link>
             <Link to="/about" style={isActive("/about")}>About</Link>
           </nav>
         </nav>
