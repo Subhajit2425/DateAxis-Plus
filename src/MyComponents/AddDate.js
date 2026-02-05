@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const AddTodo = ({ addTodo }) => {
+export const AddDate = ({ addTodo }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [showError, setShowError] = useState(false);
@@ -24,7 +24,7 @@ export const AddTodo = ({ addTodo }) => {
     return (
         <div className="container my-3">
             <div className="todo-card">
-                <h3>Add a Todo</h3>
+                <h3>Add a Date</h3>
                 <form onSubmit={submit}>
                     
                     {/* Title Field */}
@@ -37,7 +37,7 @@ export const AddTodo = ({ addTodo }) => {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                        <label htmlFor="title">Todo Title</label>
+                        <label htmlFor="title">Date Title</label>
                     </div>
 
                     {/* Description Field */}
@@ -50,12 +50,12 @@ export const AddTodo = ({ addTodo }) => {
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                         />
-                        <label htmlFor="desc">Todo Description</label>
+                        <label htmlFor="desc">Date Description</label>
                     </div>
 
                     {/* Submit */}
                     <button type="submit" className="btn btn-sm btn-success btn-modern">
-                        Add Todo
+                        Add Date
                     </button>
 
                     {/* Error Text */}

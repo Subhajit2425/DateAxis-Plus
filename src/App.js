@@ -1,112 +1,98 @@
-import './App.css';
-import Header from './MyComponents/Header';
-import Todos from './MyComponents/Todos';
-import Footer from './MyComponents/Footer';
-import { AddTodo } from "./MyComponents/AddTodo";
+import "./App.css";
+import Header from "./MyComponents/Header";
+import Dates from "./MyComponents/Dates";
+import Footer from "./MyComponents/Footer";
+import { AddDate } from "./MyComponents/AddDate";
 import { About } from "./MyComponents/About";
-import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  let initTodo;
-  if (localStorage.getItem("todos") === null) {
-    initTodo = [];
-  } else {
-    initTodo = JSON.parse(localStorage.getItem("todos"));
-  }
 
-  const onDelete = (todo) => {
-    setTodos(todos.filter((e) => e !== todo));
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }
-
-  const toggleFavorite = (todo) => {
-    const updatedTodos = todos.map(t => {
-      if (t.sno === todo.sno) {
-        return { ...t, favorite: !t.favorite };
-      }
-      return t;
-    });
-
-    setTodos(updatedTodos);
+  // Load from localStorage
+  const getInitialDates = () => {
+    const saved = localStorage.getItem("dates");
+    return saved ? JSON.parse(saved) : [];
   };
 
+  const [dates, setDates] = useState(getInitialDates);
 
-  const addTodo = (title, desc) => {
-    let sno;
-    if (todos.length === 0) {
-      sno = 0;
-    } else {
-      sno = todos[todos.length - 1].sno + 1;
-    }
-
-    const myTodo = {
-      sno: sno,
-      title: title,
-      desc: desc,
-      favorite: false,
-    }
-
-    setTodos([...todos, myTodo]);
-  }
-
-  const [todos, setTodos] = useState(initTodo);
-
+  // Save to localStorage
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos])
+    localStorage.setItem("dates", JSON.stringify(dates));
+  }, [dates]);
+
+  // Add a new important date
+  const addDate = (title, date, category, notes) => {
+    const newDate = {
+      id: Date.now(),
+      title,
+      date,
+      category,
+      notes,
+      priority: false,
+      createdAt: new Date().toISOString(),
+    };
+
+    setDates([...dates, newDate]);
+  };
+
+  // Delete a date
+  const onDelete = (item) => {
+    if (window.confirm("Delete this important date?")) {
+      setDates(dates.filter((d) => d.id !== item.id));
+    }
+  };
+
+  // Toggle priority (important)
+  const togglePriority = (item) => {
+    setDates(
+      dates.map((d) =>
+        d.id === item.id ? { ...d, priority: !d.priority } : d
+      )
+    );
+  };
 
   return (
-    <>
-      <Router>
-        <Header title="My Todos List" searchBar={false} />
+    <Router>
+      <Header title="DateAxis+" />
 
-        <Routes>
+      <Routes>
 
-          {/* Home Route */}
-          <Route
-            path="/"
-            element={
-              <>
-                <AddTodo addTodo={addTodo} />
-                <Todos
-                  todos={todos}
-                  onDelete={onDelete}
-                  onFavorite={toggleFavorite}
-                />
-              </>
-            }
-          />
+        {/* Home */}
+        <Route
+          path="/"
+          element={
+            <>
+              <AddDate addDate={addDate} />
+              <Dates
+                dates={dates}
+                onDelete={onDelete}
+                onPriority={togglePriority}
+              />
+            </>
+          }
+        />
 
-          {/* Favourites Route */}
-          <Route
-            path="/favourites"
-            element={
-              <>
-                <Todos
-                  todos={todos.filter(t => t.favorite)}
-                  onDelete={onDelete}
-                  onFavorite={toggleFavorite}
-                />
-              </>
-            }
-          />
+        {/* Priority Dates */}
+        <Route
+          path="/priority"
+          element={
+            <Dates
+              dates={dates.filter((d) => d.priority)}
+              onDelete={onDelete}
+              onPriority={togglePriority}
+            />
+          }
+        />
 
-          {/* About Route */}
-          <Route
-            path="/about"
-            element={<About />}
-          />
+        {/* About */}
+        <Route path="/about" element={<About />} />
 
-        </Routes>
+      </Routes>
 
-        <Footer />
-      </Router>
-    </>
+      <Footer />
+    </Router>
   );
 }
 
