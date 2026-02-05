@@ -5,7 +5,7 @@ import Footer from "./MyComponents/Footer";
 import { AddDate } from "./MyComponents/AddDate";
 import { About } from "./MyComponents/About";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
 
