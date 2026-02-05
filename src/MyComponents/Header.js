@@ -1,47 +1,97 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
+const Header = ({ title }) => {
+  const location = useLocation();
 
-export default function Header(props) {
+  const isActive = (path) =>
+    location.pathname === path ? styles.activeLink : styles.link;
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">{props.title}</Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-              </li>
+    <header style={styles.header}>
+      <div style={styles.container}>
+        {/* Brand */}
+        <Link to="/" style={styles.brand}>
+          {title}
+        </Link>
 
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/favourite">Favourite</Link>
-              </li>
+        {/* Navigation */}
+        <nav style={styles.nav}>
+          <Link to="/" style={isActive("/")}>Home</Link>
+          <Link to="/favourite" style={isActive("/favourite")}>Important</Link>
+          <Link to="/about" style={isActive("/about")}>About</Link>
+        </nav>
 
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">About</Link>
-              </li>
+        {/* Right Action */}
+        <Link to="/add" style={styles.addBtn}>
+          + Add Date
+        </Link>
+      </div>
+    </header>
+  );
+};
 
-            </ul>
-            { props.searchBar? <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>: "" }
-          </div>
-        </div>
-      </nav>
-  )
-}
+export default Header;
 
-Header.defaultProps = {
-    title: "Your Title Here",
-    searchBar: true
-}
 
-Header.propTypes = {
-    title: PropTypes.string,
-    searchBar: PropTypes.bool.isRequired
-}
+const styles = {
+  header: {
+    backgroundColor: "#0f172a",
+    borderBottom: "1px solid #e5e7eb",
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
+  },
+
+  container: {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "14px 20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "20px",
+  },
+
+  brand: {
+    fontSize: "22px",
+    fontWeight: 700,
+    color: "#ffffff",
+    textDecoration: "none",
+    letterSpacing: "0.2px",
+  },
+
+  nav: {
+    display: "flex",
+    gap: "24px",
+    alignItems: "center",
+  },
+
+  link: {
+    fontSize: "14px",
+    fontWeight: 500,
+    color: "#dfdfdf",
+    textDecoration: "none",
+    paddingBottom: "4px",
+  },
+
+  activeLink: {
+    fontSize: "14px",
+    fontWeight: 600,
+    color: "#2563eb",
+    textDecoration: "none",
+    borderBottom: "2px solid #2563eb",
+    paddingBottom: "4px",
+  },
+
+  addBtn: {
+    backgroundColor: "#2563eb",
+    color: "#ffffff",
+    padding: "8px 14px",
+    borderRadius: "10px",
+    fontSize: "13px",
+    fontWeight: 600,
+    textDecoration: "none",
+    transition: "background-color 0.2s ease",
+  },
+};

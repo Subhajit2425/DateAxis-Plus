@@ -3,7 +3,7 @@ import Header from "./MyComponents/Header";
 import Dates from "./MyComponents/Dates";
 import Footer from "./MyComponents/Footer";
 import { AddDate } from "./MyComponents/AddDate";
-import { About } from "./MyComponents/About";
+import About from "./MyComponents/About";
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 

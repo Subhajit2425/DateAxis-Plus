@@ -6,35 +6,108 @@ const Dates = ({ dates, onDelete, onPriority }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="container dates-list-wrapper">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Your Important Dates</h3>
-
-        <button
-          className="btn btn-success btn-sm"
-          onClick={() => navigate("/add")}
-        >
-          + Add Date
-        </button>
+    <div style={styles.pageWrapper}>
+      {/* Header Section */}
+      <div style={styles.headerRow}>
+        <div>
+          <h2 style={styles.title}>Your Important Dates</h2>
+          <p style={styles.subtitle}>
+            Track exams, medical visits, legal events, and personal milestones
+          </p>
+        </div>
       </div>
-      
 
+      {/* Content */}
       {dates.length === 0 ? (
-        <p className="empty-message">
-          ✨ No important dates yet. Add one above!
-        </p>
+        <div style={styles.emptyCard}>
+          <span style={styles.emptyIcon}>✨</span>
+          <p style={styles.emptyText}>
+            No important dates yet.<br />
+            Click <strong>“Add Date”</strong> to get started.
+          </p>
+        </div>
       ) : (
-        dates.map((item) => (
-          <DatesItem
-            key={item.id}
-            dateItem={item}
-            onDelete={onDelete}
-            onPriority={onPriority}
-          />
-        ))
+        <div style={styles.listWrapper}>
+          {dates.map((item) => (
+            <DatesItem
+              key={item.id}
+              dateItem={item}
+              onDelete={onDelete}
+              onPriority={onPriority}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
 };
 
 export default Dates;
+
+const styles = {
+  pageWrapper: {
+    maxWidth: "1100px",
+    margin: "0 auto",
+    padding: "32px 20px 60px",
+  },
+
+  headerRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: "28px",
+    gap: "20px",
+    flexWrap: "wrap",
+  },
+
+  title: {
+    fontSize: "28px",
+    fontWeight: 700,
+    color: "#0f172a", // MedAxis dark
+    marginBottom: "6px",
+  },
+
+  subtitle: {
+    fontSize: "14px",
+    color: "#64748b",
+  },
+
+  addButton: {
+    backgroundColor: "#2563eb", // MedAxis blue
+    color: "#fff",
+    border: "none",
+    padding: "10px 18px",
+    borderRadius: "10px",
+    fontSize: "14px",
+    fontWeight: 600,
+    cursor: "pointer",
+    transition: "all 0.25s ease",
+  },
+
+  listWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+  },
+
+  emptyCard: {
+    backgroundColor: "#f8fafc",
+    border: "1px dashed #cbd5e1",
+    borderRadius: "14px",
+    padding: "48px 24px",
+    textAlign: "center",
+    marginTop: "20px",
+  },
+
+  emptyIcon: {
+    fontSize: "26px",
+    display: "block",
+    marginBottom: "10px",
+  },
+
+  emptyText: {
+    fontSize: "15px",
+    color: "#475569",
+    lineHeight: "1.6",
+  },
+};
