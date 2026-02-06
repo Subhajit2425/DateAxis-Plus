@@ -1,13 +1,24 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import DatesItem from "./DatesItem";
 
 const Dates = ({ dates, onDelete, onPriority }) => {
-  const navigate = useNavigate();
+  // 🔹 Today (start of day)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // 🔹 Filter upcoming dates only
+  const upcomingDates = dates.filter(
+    (item) => new Date(item.date) >= today
+  );
+
+  // 🔹 Sort ascending (nearest first)
+  const sortedDates = [...upcomingDates].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
   return (
     <div style={styles.pageWrapper}>
-      {/* Header Section */}
+      {/* Header */}
       <div style={styles.headerRow}>
         <div>
           <h2 style={styles.title}>Upcoming Dates</h2>
@@ -18,16 +29,16 @@ const Dates = ({ dates, onDelete, onPriority }) => {
       </div>
 
       {/* Content */}
-      {dates.length === 0 ? (
+      {sortedDates.length === 0 ? (
         <div style={styles.emptyCard}>
           <p style={styles.emptyText}>
-            No important dates yet.<br />
+            No upcoming dates.<br />
             Click <strong>“Add Date”</strong> to get started.
           </p>
         </div>
       ) : (
         <div style={styles.listWrapper}>
-          {dates.map((item) => (
+          {sortedDates.map((item) => (
             <DatesItem
               key={item.id}
               dateItem={item}
@@ -42,6 +53,7 @@ const Dates = ({ dates, onDelete, onPriority }) => {
 };
 
 export default Dates;
+
 
 const styles = {
   pageWrapper: {

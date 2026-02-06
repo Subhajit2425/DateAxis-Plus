@@ -2,7 +2,20 @@ import React from "react";
 import DatesItem from "./DatesItem";
 
 const ImportantDates = ({ dates, onDelete, onPriority }) => {
-  const importantDates = dates.filter((item) => item.priority);
+  // 🔹 Today (start of day)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // 🔹 Filter ONLY upcoming + important dates
+  const upcomingImportantDates = dates.filter(
+    (item) =>
+      item.priority && new Date(item.date) >= today
+  );
+
+  // 🔹 Sort ascending (nearest first)
+  const sortedImportantDates = [...upcomingImportantDates].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
   return (
     <div style={styles.pageWrapper}>
@@ -10,21 +23,21 @@ const ImportantDates = ({ dates, onDelete, onPriority }) => {
       <div style={styles.header}>
         <h2 style={styles.title}>Important Dates</h2>
         <p style={styles.subtitle}>
-          Dates you’ve marked as high priority
+          High-priority dates that are coming up
         </p>
       </div>
 
       {/* Content */}
-      {importantDates.length === 0 ? (
+      {sortedImportantDates.length === 0 ? (
         <div style={styles.emptyCard}>
           <p style={styles.emptyText}>
-            No important dates yet.<br />
-            Mark a date as important to see it here.
+            No upcoming important dates.<br />
+            Mark a future date as important to see it here.
           </p>
         </div>
       ) : (
         <div style={styles.list}>
-          {importantDates.map((item) => (
+          {sortedImportantDates.map((item) => (
             <DatesItem
               key={item.id}
               dateItem={item}
@@ -39,6 +52,7 @@ const ImportantDates = ({ dates, onDelete, onPriority }) => {
 };
 
 export default ImportantDates;
+
 
 const styles = {
   pageWrapper: {
