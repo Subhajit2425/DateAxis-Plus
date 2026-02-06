@@ -81,7 +81,7 @@ const styles = {
   activeLink: {
     fontSize: "14px",
     fontWeight: 600,
-    color: "#2563eb",
+    color: "#4178ed",
     textDecoration: "none",
     borderBottom: "2px solid #2563eb",
     paddingBottom: "4px",
