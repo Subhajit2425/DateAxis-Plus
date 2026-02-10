@@ -4,6 +4,7 @@ import UserOnboarding from "./MyComponents/UserOnboarding"; // next step
 import Header from "./MyComponents/Header";
 import BottomNav from "./MyComponents/BottomNav/BottomNav";
 import Dates from "./MyComponents/Dates";
+import EditDate from "./MyComponents/EditDate";
 import ImportantDates from "./MyComponents/ImportantDates";
 import CompletedDates from "./MyComponents/CompletedDates";
 import Footer from "./MyComponents/Footer";
@@ -18,8 +19,12 @@ function App() {
 
   // Load from localStorage
   const getInitialDates = () => {
-    const saved = localStorage.getItem("dates");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("dates");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   };
 
   const [dates, setDates] = useState(getInitialDates);
@@ -46,7 +51,7 @@ function App() {
   // Add a new important date
   const addDate = (title, date, category, notes) => {
     const newDate = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       title,
       date,
       category,
@@ -55,7 +60,15 @@ function App() {
       createdAt: new Date().toISOString(),
     };
 
-    setDates([...dates, newDate]);
+    setDates(prev => [...prev, newDate]);
+  };
+
+  const updateDate = (updatedItem) => {
+    setDates((prev) =>
+      prev.map((item) =>
+        item.id === updatedItem.id ? updatedItem : item
+      )
+    );
   };
 
   // Delete a date
@@ -106,6 +119,16 @@ function App() {
         <Route
           path="/add"
           element={<AddDate addDate={addDate} />}
+        />
+
+        <Route
+          path="/edit/:id"
+          element={
+            <EditDate
+              dates={dates}
+              onUpdate={updateDate}
+            />
+          }
         />
 
         {/* Priority Dates */}

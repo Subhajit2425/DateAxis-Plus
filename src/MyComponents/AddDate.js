@@ -9,6 +9,7 @@ export const AddDate = ({ addDate }) => {
   const [category, setCategory] = useState("Personal");
   const [notes, setNotes] = useState("");
   const [showError, setShowError] = useState("");
+  const [time, setTime] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
@@ -21,15 +22,29 @@ export const AddDate = ({ addDate }) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const selectedDate = new Date(date);
-    selectedDate.setHours(0, 0, 0, 0);
+    const selectedDateTime = new Date(
+      time ? `${date}T${time}` : `${date}T00:00`
+    );
 
-    if (selectedDate < today) {
-      setShowError("You cannot add a date in the past.");
+    const now = new Date();
+
+    if (selectedDateTime < now) {
+      setShowError("You cannot add a past date or time.");
       return;
     }
 
-    addDate(title.trim(), date, category, notes.trim());
+    // 🔹 Combine date & time
+    const dateTime = time
+      ? `${date}T${time}`
+      : `${date}T00:00`;
+
+    addDate(
+      title.trim(),
+      dateTime,   // 🔥 use dateTime instead of date
+      category,
+      notes.trim()
+    );
+
     navigate("/");
   };
 
@@ -53,7 +68,10 @@ export const AddDate = ({ addDate }) => {
               style={styles.input}
               placeholder="e.g. Final Semester Exam"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setShowError("");
+              }}
             />
           </div>
 
@@ -65,7 +83,27 @@ export const AddDate = ({ addDate }) => {
               style={styles.input}
               value={date}
               min={new Date().toISOString().split("T")[0]}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => {
+                setDate(e.target.value);
+                setShowError("");
+              }}
+            />
+          </div>
+
+          {/* Time (Optional) */}
+          <div style={styles.field}>
+            <label style={styles.label}>
+              Event Time <span style={{ color: "#94a3b8" }}>(optional)</span>
+            </label>
+
+            <input
+              type="time"
+              style={styles.input}
+              value={time}
+              onChange={(e) => {
+                setTime(e.target.value);
+                setShowError("");
+              }}
             />
           </div>
 
@@ -75,7 +113,10 @@ export const AddDate = ({ addDate }) => {
             <select
               style={styles.input}
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setShowError("");
+              }}
             >
               <option>Medical</option>
               <option>Exam</option>
@@ -92,7 +133,10 @@ export const AddDate = ({ addDate }) => {
               style={{ ...styles.input, height: "90px" }}
               placeholder="Any additional details…"
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) => {
+                setNotes(e.target.value);
+                setShowError("");
+              }}
             />
           </div>
 
@@ -113,7 +157,11 @@ export const AddDate = ({ addDate }) => {
               Cancel
             </button>
 
-            <button type="submit" style={styles.primaryBtn}>
+            <button
+              type="submit"
+              style={styles.primaryBtn}
+              disabled={!title.trim() || !date}
+            >
               Save Date
             </button>
           </div>

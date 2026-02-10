@@ -1,12 +1,36 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const DatesItem = ({ dateItem, onDelete, onPriority }) => {
+  const navigate = useNavigate();
+
   const eventDate = new Date(dateItem.date);
-  const today = new Date();
-  const daysLeft = Math.ceil(
-    (eventDate.setHours(0,0,0,0) - today.setHours(0,0,0,0)) /
-      (1000 * 60 * 60 * 24)
-  );
+  const now = new Date();
+
+  const diffMs = eventDate - now;
+  const diffDays =
+    diffMs > 0
+      ? Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+      : Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+
+  const dateLabel = eventDate.toLocaleDateString(undefined, {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+
+  let timeLabel = null;
+
+  if (
+    dateItem.date.includes("T") &&
+    !dateItem.date.endsWith("T00:00")
+  ) {
+    const [, timePart] = dateItem.date.split("T");
+    const [hh, mm] = timePart.split(":");
+    timeLabel = `${hh}:${mm}`;
+  }
 
   return (
     <div style={styles.card}>
@@ -14,10 +38,14 @@ const DatesItem = ({ dateItem, onDelete, onPriority }) => {
       <div style={styles.header}>
         <div>
           <h4 style={styles.title}>{dateItem.title}</h4>
+
           <div style={styles.metaRow}>
             <span style={styles.badge}>{dateItem.category}</span>
             <span style={styles.dateText}>
-              {eventDate.toDateString()}
+              {dateLabel}
+              {timeLabel && (
+                <span style={styles.timeText}> • {timeLabel}</span>
+              )}
             </span>
           </div>
         </div>
@@ -39,22 +67,31 @@ const DatesItem = ({ dateItem, onDelete, onPriority }) => {
         <p style={styles.notes}>{dateItem.notes}</p>
       )}
 
-      {/* Footer */}
+      {/* Actions */}
       <div style={styles.footer}>
         <span style={styles.daysLeft}>
-          {daysLeft > 0
-            ? `${daysLeft} days remaining`
-            : daysLeft === 0
-            ? "Today"
-            : `${Math.abs(daysLeft)} days ago`}
+          {diffMs > 0
+            ? diffDays === 0
+              ? "Today"
+              : `${diffDays} days remaining`
+            : `${Math.abs(diffDays)} days ago`}
         </span>
 
-        <button
-          style={styles.deleteBtn}
-          onClick={() => onDelete(dateItem)}
-        >
-          Delete
-        </button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            style={styles.editBtn}
+            onClick={() => navigate(`/edit/${dateItem.id}`)}
+          >
+            Edit
+          </button>
+
+          <button
+            style={styles.deleteBtn}
+            onClick={() => onDelete(dateItem)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -133,6 +170,17 @@ const styles = {
     fontSize: "13px",
     color: "#2563eb",
     fontWeight: 500,
+  },
+
+  editBtn: {
+    backgroundColor: "#e0f2fe",
+    color: "#0369a1",
+    border: "none",
+    padding: "6px 14px",
+    borderRadius: "8px",
+    fontSize: "13px",
+    fontWeight: 500,
+    cursor: "pointer",
   },
 
   deleteBtn: {
