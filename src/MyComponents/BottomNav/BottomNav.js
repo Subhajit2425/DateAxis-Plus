@@ -45,9 +45,9 @@ const BottomNav = () => {
         <span>Completed</span>
       </NavLink>
 
-      <NavLink to="/about" className="bottom-nav-item">
+      <NavLink to="/calendar" className="bottom-nav-item">
         <InfoOutlined />
-        <span>About</span>
+        <span>Calendar</span>
       </NavLink>
     </div>
   );

@@ -5,13 +5,15 @@ const DatesItem = ({ dateItem, onDelete, onPriority }) => {
   const navigate = useNavigate();
 
   const eventDate = new Date(dateItem.date);
-  const now = new Date();
 
-  const diffMs = eventDate - now;
-  const diffDays =
-    diffMs > 0
-      ? Math.ceil(diffMs / (1000 * 60 * 60 * 24))
-      : Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const eventDateOnly = new Date(eventDate);
+  eventDateOnly.setHours(0, 0, 0, 0);
+
+  const diffMs = eventDateOnly - today;
+  const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
 
 
   const dateLabel = eventDate.toLocaleDateString(undefined, {
@@ -70,11 +72,15 @@ const DatesItem = ({ dateItem, onDelete, onPriority }) => {
       {/* Actions */}
       <div style={styles.footer}>
         <span style={styles.daysLeft}>
-          {diffMs > 0
-            ? diffDays === 0
-              ? "Today"
-              : `${diffDays} days remaining`
-            : `${Math.abs(diffDays)} days ago`}
+          {diffDays === 0
+            ? "Today"
+            : diffDays === 1
+              ? "Tomorrow"
+              : diffDays > 1
+                ? `${diffDays} days remaining`
+                : diffDays === -1
+                  ? "Yesterday"
+                  : `${Math.abs(diffDays)} days ago`}
         </span>
 
         <div style={{ display: "flex", gap: "10px" }}>

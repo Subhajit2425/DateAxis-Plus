@@ -9,6 +9,7 @@ import ImportantDates from "./MyComponents/ImportantDates";
 import CompletedDates from "./MyComponents/CompletedDates";
 import Footer from "./MyComponents/Footer";
 import { AddDate } from "./MyComponents/AddDate";
+import CalendarView from "./MyComponents/CalendarView";
 import About from "./MyComponents/About";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -151,6 +152,11 @@ function App() {
               onDelete={onDelete}
             />
           }
+        />
+
+        <Route
+          path="/calendar"
+          element={<CalendarView dates={dates} />}
         />
 
         {/* About */}
