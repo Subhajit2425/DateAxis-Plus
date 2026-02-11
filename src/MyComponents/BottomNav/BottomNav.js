@@ -6,8 +6,8 @@ import {
   HomeOutlined,
   StarOutline,
   CheckCircleOutline,
-  InfoOutlined,
 } from "@mui/icons-material";
+import CalendarMonthOutlined from "@mui/icons-material/CalendarMonthOutlined";
 
 const BottomNav = () => {
   const [visible, setVisible] = useState(true);
@@ -46,7 +46,7 @@ const BottomNav = () => {
       </NavLink>
 
       <NavLink to="/calendar" className="bottom-nav-item">
-        <InfoOutlined />
+        <CalendarMonthOutlined />
         <span>Calendar</span>
       </NavLink>
     </div>

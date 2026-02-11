@@ -12,7 +12,14 @@ const Header = ({ title }) => {
       <div style={styles.container}>
         {/* Brand */}
         <Link to="/" style={styles.brand}>
-          {title}
+          <img
+            src={process.env.PUBLIC_URL + "/icons/logo512.png"}
+            alt="DateAxis Logo"
+            style={styles.logo}
+          />
+          <span>
+            DateAxis<span style={styles.plus}>+</span>
+          </span>
         </Link>
 
         {/* Navigation */}
@@ -47,6 +54,31 @@ const styles = {
     zIndex: 100,
   },
 
+  logo: {
+    width: "36px",
+    height: "36px",
+    objectFit: "contain",
+    marginRight: "10px",
+    borderRadius: "10px",
+    boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
+  },
+
+  plus: {
+    marginLeft: "2px",
+    fontWeight: "900",
+    color: "#38bdf8",
+  },
+
+  brand: {
+    display: "flex",
+    alignItems: "center",
+    fontSize: "22px",
+    fontWeight: 700,
+    color: "#ffffff",
+    textDecoration: "none",
+    letterSpacing: "0.2px",
+  },
+
   container: {
     maxWidth: "1200px",
     margin: "0 auto",
@@ -55,14 +87,6 @@ const styles = {
     alignItems: "center",
     justifyContent: "space-between",
     gap: "20px",
-  },
-
-  brand: {
-    fontSize: "22px",
-    fontWeight: 700,
-    color: "#ffffff",
-    textDecoration: "none",
-    letterSpacing: "0.2px",
   },
 
   nav: {
