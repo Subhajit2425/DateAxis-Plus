@@ -3,12 +3,16 @@ import DatesItem from "./DatesItem";
 
 const Dates = ({ dates, onDelete, onPriority }) => {
   // 🔹 Today (start of day)
-  const now = new Date();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   // 🔹 Filter upcoming dates only
-  const upcomingDates = dates.filter(
-    (item) => new Date(item.date) >= now
-  );
+  const upcomingDates = dates.filter((item) => {
+    const itemDate = new Date(item.date);
+    itemDate.setHours(0, 0, 0, 0);
+
+    return itemDate >= today;
+  });
 
 
   // 🔹 Sort ascending (nearest first)
